@@ -1,0 +1,48 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <button><a href='' 
+        dropdown-menu="ddSelectOptions"
+        dropdown-item-label="text">
+        Area
+    </a>
+                  </button>
+                  <button><a href='' 
+        dropdown-menu="ddSelectOptions2"
+        dropdown-item-label="text">
+        ChatRoom
+    </a>
+                  </button>
+    <button><a ng-href="/">Home</a></button>
+    <button ng-show="cookie != 'valid'"><a ng-href="signins" ng-click='signin()'>Sign in</a></button>
+    <button ng-show="cookie == 'valid'"><a ng-click='signout()'>Sign out</a></button>
+    <button ng-show="cookie == 'valid'"><a href='' 
+        dropdown-menu="ddSelectOptions1"
+        dropdown-item-label="text">
+        Account
+    </a>
+                  </button>
+  </ul>
+  <h3 class="text-muted">PlayWell</h3>
+<div ng-repeat="y in chats | orderBy:'+updated'">
+                 <span class="main-text ">
+                 {{y.user.name}}: {{y.content}}
+                 </span>
+        </div><br>
+<form ng-show="cookie == 'valid'" ng-submit="addChat()"
+    style="margin-top:30px;">
+<div class="form-group">
+      <input type="text"
+      class="form-control"
+      placeholder="Enter.."
+      ng-model="newchat.content"></input>
+      <span ng-show="err != undefined" ng-repeat="errmessage in err"><font color="red">{{errmessage}}</font></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+  </div><br>Online users:
+<div ng-repeat="x in users">
+                 <span class="main-text ">
+                 {{x.name}}
+                 </span>
+        </div>
+<br>

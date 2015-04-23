@@ -1,0 +1,66 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <button><a href='' 
+        dropdown-menu="ddSelectOptions"
+        dropdown-item-label="text">
+        Area
+    </a>
+                  </button>
+                  <button><a href='' 
+        dropdown-menu="ddSelectOptions2"
+        dropdown-item-label="text">
+        ChatRoom
+    </a>
+                  </button>
+    <button><a ng-href="/">Home</a></button>
+    <button ng-show="cookie != 'valid'"><a ng-href="signins" ng-click='signin()'>Sign in</a></button>
+    <button ng-show="cookie == 'valid'"><a ng-click='signout()'>Sign out</a></button>
+    <button ng-show="cookie == 'valid'"><a href='' 
+        dropdown-menu="ddSelectOptions1"
+        dropdown-item-label="text">
+        Account
+    </a>
+                  </button>
+  </ul>
+  <h3 class="text-muted">PlayWell</h3>
+</div>
+<div class="container" >
+      <div class="row">
+       <div class="col-md-8 col-md-offset-2">
+  <div class="page-header">
+    <h3>
+    <span>
+                    <a href="/infos/{{info._id}}/comments">Back to all comments</a>
+                </span><br>
+      <span>
+        {{needcomment.content}}
+
+      </span>
+    </h3>
+  </div>
+  <button ng-click="getuserneedComments(0)">All Comments</button>
+  <button ng-click="getuserneedComments(5)">Top 5 Comments</button>
+  <button ng-click="getuserneedComments(10)">Top 10 Comments</button>
+  <div ng-repeat="comment in allcomments | orderBy:'-upvotes'">
+    <span class="glyphicon glyphicon-thumbs-up"
+      ng-click="incrementUpvotes(comment)"></span>
+    {{comment.upvotes}} - by {{comment.user.name}}
+    <span style="font-size:20px; margin-left:10px;">
+      {{comment.content}}
+    </span>
+  </div>
+
+  <form ng-show="cookie == 'valid'" ng-submit="addComment()"
+    style="margin-top:30px;">
+    <h3>Add a new comment</h3>
+
+    <div class="form-group">
+      <input type="text"
+      class="form-control"
+      placeholder="Comment"
+      ng-model="newcomment.content"></input>
+    </div>
+    <button type="submit" class="btn btn-primary">Post</button>
+  </form>
+     </div>
+     </div>

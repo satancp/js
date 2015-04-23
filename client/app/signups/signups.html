@@ -1,0 +1,54 @@
+<form name="form" ng-submit="handleRegBtnClick(registrationForm)" role="form" ng-init="registrationForm = {}" novalidate>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="name"
+           name="name"
+           id="name"
+           ng-model="registrationForm.name"
+           required="required"
+           class="form-control"
+           min="3" max="10">
+  <span ng-show="form.name.$error.required || err && err.errors.name.type == 'required'">Please input name!</span>
+  <span ng-show="form.name.$error.length.min || form.name.$error.length.max">Length of name is invalid!(Should be 3-10)</span>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email"
+           name="email"
+           id="email"
+           ng-model="registrationForm.email"
+           required="required"
+           class="form-control">
+  <span ng-show="form.email.$error.email">Email is invalid!</span>
+  <span ng-show="form.email.$error.required || err && err.errors.email.type == 'required'">Please input email!</span>
+  <span ng-show="err.code == 11000 || err.code == 11001"><font color="red">This email has been used!</font></span>
+  </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password"
+           name="password"
+           id="password"
+           ng-model="registrationForm.password"
+           required="required"
+           class="form-control"
+           min="7">
+  <span ng-show="form.password.$error.length.min || err && err.errors.password">Length of password is too short!(At least 7)</span>
+  </div>
+
+  <div class="form-group">
+    <label for="password_confirmation">Password confirmation</label>
+    <input type="password"
+           name="password_confirmation"
+           id="password_confirmation"
+           ng-model="registrationForm.password_confirmation"
+           required="required"
+           class="form-control"
+           data-password-verify="registrationForm.password">
+  <span ng-show="form.password_confirmation.$error.passwordVerify">Password is not correct!</span>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-lg">Register</button>
+</form>

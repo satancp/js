@@ -1,28 +1,98 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
-<header class="hero-unit" id="banner">
-  <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
-  </div>
-</header>
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Features:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">
-        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}</a></li>
-      </ul>
-    </div>
-  </div>
+<div ng-show="user.power == 'admin'">
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <button><a href='' 
+        dropdown-menu="ddSelectOptions"
+        dropdown-item-label="text">
+        Area
+    </a>
+                  </button>
+                  <button><a href='' 
+        dropdown-menu="ddSelectOptions2"
+        dropdown-item-label="text">
+        ChatRoom
+    </a>
+                  </button>
+    <button><a ng-href="/">Home</a></button>
+    <button ng-show="cookie != 'valid'"><a ng-href="signins" ng-click='signin()'>Sign in</a></button>
+    <button ng-show="cookie == 'valid'"><a ng-click='signout()'>Sign out</a></button>
+    <button ng-show="cookie == 'valid'"><a href='' 
+        dropdown-menu="ddSelectOptions1"
+        dropdown-item-label="text">
+        Account
+    </a>
+                  </button>
+  </ul>
+  <h3 class="text-muted">PlayWell</h3>
 </div>
-
-<footer class="footer">
-  <div class="container">
-      <p>Angular Fullstack v2.0.13 |
-        <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
-         <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
+  <div class="row">
+    <!-- <div class="col-sm-4 col-sm-offset-3"> -->
+    <div class="col-sm-4 col">
+      <h3>Add new Infos</h3> 
+      <form ng-submit="addInfo(newInfo)" role="form" ng-init="newInfo = {}">
+      <div class="form-group">
+          <label for="Title">Title</label>
+          <input type="text" class="form-control" ng-model="newInfo.title" 
+                 placeholder="Enter....">
+      </div>
+      <div class="form-group">
+          <label for="Content">Content</label>
+          <input type="text" class="form-control" ng-model="newInfo.content" 
+                   placeholder="Enter....">
+      </div>
+      <input type="radio" ng-model="newInfo.infotype" value={{infotypes[0]._id}}>{{infotypes[0].name}}<br/>
+  <input type="radio" ng-model="newInfo.infotype" value={{infotypes[1]._id}}>{{infotypes[1].name}}<br/>
+  <input type="radio" ng-model="newInfo.infotype" value={{infotypes[2]._id}}>{{infotypes[2].name}}<br/>
+  <input type="radio" ng-model="newInfo.infotype" value={{infotypes[3]._id}}>{{infotypes[3].name}}<br/><br/>
+      <input type="submit" class="btn btn-primary"  value="Post">
+    </form>
   </div>
-</footer>
+    <div class="col-sm-4">
+      <h3>All Areas</h3>   
+      <table class="table table-bordered">
+        <tr><th>Name</th><th>Rate</th></tr> 
+              <tr ng-repeat="infotype in infotypes | orderBy: '-rate'">
+                <td>
+                  {{infotype.name | uppercase}}
+                </td>
+                <td>
+                  {{infotype.rate}}
+                </td>
+         </tr>
+       </table>
+  </div>
+     </div>
+   </div>
+</div>
+<div ng-show="user.power == 'user' || user == undefined">
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <button><a href='' 
+        dropdown-menu="ddSelectOptions"
+        dropdown-item-label="text">
+        Area
+    </a>
+                  </button>
+                  <button><a href='' 
+        dropdown-menu="ddSelectOptions2"
+        dropdown-item-label="text">
+        ChatRoom
+    </a>
+                  </button>
+    <button><a ng-href="/">Home</a></button>
+    <button ng-show="cookie != 'valid'"><a ng-href="signins" ng-click='signin()'>Sign in</a></button>
+    <button ng-show="cookie == 'valid'"><a ng-click='signout()'>Sign out</a></button>
+    <button ng-show="cookie == 'valid'"><a href='' 
+        dropdown-menu="ddSelectOptions1"
+        dropdown-item-label="text">
+        Account
+    </a>
+                  </button>
+  </ul>
+  <h3 class="text-muted">PlayWell</h3>
+</div>
+<button ng-click="getuserneedView(0)">All Information</button>
+<button ng-click="getuserneedView(1)">Just the love fields</button>
+<div ng-repeat="a in needshow"><a href="/infotypes/{{a._id}}">{{a.name}}</a>
+<span ng-repeat="b in a.infos"><a href="/infos/{{b._id}]/comments">{{b.title}}</a></span></div>
+</div>

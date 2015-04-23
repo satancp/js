@@ -1,0 +1,82 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <button><a href='' 
+        dropdown-menu="ddSelectOptions"
+        dropdown-item-label="text">
+        Area
+    </a>
+                  </button>
+                  <button><a href='' 
+        dropdown-menu="ddSelectOptions2"
+        dropdown-item-label="text">
+        ChatRoom
+    </a>
+                  </button>
+    <button><a ng-href="/">Home</a></button>
+    <button ng-show="cookie != 'valid'"><a ng-href="signins" ng-click='signin()'>Sign in</a></button>
+    <button ng-show="cookie == 'valid'"><a ng-click='signout()'>Sign out</a></button>
+    <button ng-show="cookie == 'valid'"><a href='' 
+        dropdown-menu="ddSelectOptions1"
+        dropdown-item-label="text">
+        Account
+    </a>
+                  </button>
+  </ul>
+  <h3 class="text-muted">PlayWell</h3>
+</div>
+<div class="container" >
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+        <div class="page-header">
+          <h1>{{dd}}</h1>
+        </div>
+        <div ng-repeat="info in infos | orderBy:'-upvotes'">
+            <span class="glyphicon glyphicon-thumbs-up"
+                 ng-click="incrementUpvotes(info)"></span>
+                 {{info.upvotes}}
+                 <span class="main-text ">
+                 {{info.title}}
+                 </span>
+                <span>
+                    <a href="/infos/{{info._id}}/comments">Comments</a>
+                </span>
+            </span>
+        </div>
+
+<!--       <form ng-submit="addPost()"
+        style="margin-top:30px;">
+        <h4>Add a new post</h4>
+
+        <div class="form-group">
+          <input type="text" 
+            class="form-control" placeholder="Title" 
+            ng-model="title" ></input>
+        </div>
+        <div class="form-group">
+          <input type="url" class="form-control" placeholder="Link"
+            ng-model="link"></input>
+        </div>
+        <div class="form-group">
+          <input type="text" 
+          class="form-control" placeholder="Username"
+          ng-model="username" > </input>
+        </div>
+        <button type="submit" class="btn btn-primary"
+            >
+        Post</button>
+      </form>
+
+
+
+            <button type="submit" class="btn btn-primary"
+                ng-disabled="postForm.title.$pristine || 
+                     postForm.title.$dirty && postForm.title.$invalid ||
+                     postForm.username.$pristine ">
+ -->
+
+<!-- Article:  http://blog.brunoscopelliti.com/form-validation-the-angularjs-way -->
+
+ 
+    </div>
+     </div>
+     </div>

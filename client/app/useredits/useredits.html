@@ -1,0 +1,67 @@
+ <form name="form" ng-submit="updateuser(updateForm)" role="form" ng-init="updateForm = {}" novalidate>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="name"
+           name="name"
+           id="name"
+           ng-model="updateForm.name"
+           required="required"
+           class="form-control"
+           min="3" max="10">
+  <span ng-show="form.name.$error.required || err && err.errors.name.type == 'required'">Please input name!</span>
+  <span ng-show="form.name.$error.length.min || form.name.$error.length.max">Length of name is invalid!(Should be 3-10)</span>
+  </div>
+  
+  <div class="form-group">
+    <label for="old_password">Old Password</label>
+    <input type="password"
+           name="old_password"
+           id="old_password"
+           ng-model="updateForm.old_password"
+           required="required"
+           class="form-control"
+           data-password-verify="user.password">
+  <span ng-show="form.old_password.$error.passwordVerify">The old password is incorrect!</span>
+  </div>
+
+  <div class="form-group">
+    <label for="password">New Password</label>
+    <input type="password"
+           name="password"
+           id="password"
+           ng-model="updateForm.password"
+           required="required"
+           class="form-control"
+           min="7">
+  <span ng-show="form.password.$error.length.min || err && err.errors.password">Length of password is too short!(At least 7)</span>
+  </div>
+
+  <div class="form-group">
+    <label for="password_confirmation">Password confirmation</label>
+    <input type="password"
+           name="password_confirmation"
+           id="password_confirmation"
+           ng-model="updateForm.password_confirmation"
+           required="required"
+           class="form-control"
+           data-password-verify="updateForm.password">
+  <span ng-show="form.password_confirmation.$error.passwordVerify">Password is not correct!</span>
+  </div><br>
+  Choose your favourite fields:
+  <br>
+  <label>{{infotypes[0].name}}:
+    <input type="checkbox" ng-model="updateForm.in1" ng-click="select(0,infotypes[0]._id)">
+  </label><br/>
+  <label>{{infotypes[1].name}}:
+    <input type="checkbox" ng-model="updateForm.in2" ng-click="select(1,infotypes[1]._id)">
+   </label><br/>
+   <label>{{infotypes[2].name}}:
+    <input type="checkbox" ng-model="updateForm.in3" ng-click="select(2,infotypes[2]._id)">
+  </label><br/>
+  <label>{{infotypes[3].name}}:
+    <input type="checkbox" ng-model="updateForm.in4" ng-click="select(3,infotypes[3]._id)">
+   </label><br/><br/>
+
+  <button type="submit" class="btn btn-primary btn-lg">Update</button>
+</form>
+</div>
