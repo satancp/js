@@ -98,7 +98,7 @@ exports.deleteuser = function(req, res) {
     });
   }
   else{
-    return handleError(res,"Invalid request");
+    return handleError(res,"Invalid request")
   }
 };
 

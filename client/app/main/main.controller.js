@@ -82,6 +82,7 @@ angular.module('as2App')
           });
     }
     $scope.getuserneedView = function(num){
+      if($scope.user != undefined){
                 if(num == 0){
                   var query1 = new Object();
                   query1.api = 'infotype';
@@ -116,5 +117,11 @@ angular.module('as2App')
                     $route.reload();
                   });
                 }
-              }
+      }
+      else{
+        alert('Please login!');
+        $location.path('/signins');
+        $route.reload();
+      }
+    }
 }]) 

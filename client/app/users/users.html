@@ -29,5 +29,8 @@
     <div class="col-sm-4 col-sm-offset-3">
       <h3>{{hh.name}}</h3> 
       Name:<div>{{user.name}}</div>
-      Email:<div>{{user.email}}</div></div></div></div>
+      Email:<div>{{user.email}}</div>
+      <div ng-show="user.receivemails.length != 0">New messages:</div>
+      <div ng-show="user.receivemails.length != 0" ng-repeat="x in user.receivemails"><br>title:{{x.title}}<button ng-click="delete(user._id,x._id)">Delete</button><br><br>content:{{x.content}}<br><br><br></div>
+      </div></div></div>
       

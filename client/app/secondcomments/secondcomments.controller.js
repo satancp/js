@@ -138,6 +138,10 @@ angular.module('as2App')
                 .success(function(added_comment) {
                     $scope.needcomment.comments.push(added_comment)
                     $scope.newcomment = {} ;   
-                })
+                }).error(function(err){
+                  $scope.err = err;
+                  $location.path('/infos/'+$routeParams.info_id+'/comments/'+$routeParams.comment_id+'/comments');
+                  $route.reload();
+                });
     }
 }])

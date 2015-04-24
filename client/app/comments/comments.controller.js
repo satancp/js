@@ -135,6 +135,8 @@ angular.module('as2App')
                     $scope.comment = {} ;   
                 }).error(function(err){
                   $scope.err = err;
+                  $location.path(/infos/+$routeParams.info_id+'/comments');
+                  $route.reload();
                 });
     }
 }])

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('as2App')
-   .controller('UsersCtrl', ['$scope','User','Info','$location','ipCookie', '$routeParams','$route','Area',
-       function($scope,User,Info,$location,ipCookie,$routeParams,$route,Area) {
+   .controller('UsersCtrl', ['$scope','User','Info','$location','ipCookie', '$routeParams','$route','Area','Mail',
+       function($scope,User,Info,$location,ipCookie,$routeParams,$route,Area,Mail) {
        Info.getInfotypes()
         .success(function(infotypes) {
              $scope.infotypes = infotypes;
@@ -23,12 +23,14 @@ angular.module('as2App')
         }
     ];
         });
-        User.checkUser($routeParams.id)
-        .success(function(user) {
-             $scope.hh = user;
-         });
        User.getUser($routeParams.id).success(function (get_user) {
             $scope.user = get_user;
+            $scope.delete = function (userid,mailid) {
+              Mail.deleteMail(userid,mailid).success(function(){
+                $location.path('/users/'+$routeParams.id);
+                $route.reload();
+              })
+            }
             $scope.signout = function () {
               ipCookie.remove('LoginUser');
               $scope.user = undefined;

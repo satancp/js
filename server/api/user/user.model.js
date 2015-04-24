@@ -12,6 +12,8 @@ var UserSchema = new Schema({
         email: { type: String, required: true , unique: true, trim: true},
         password: { type: String, required: true },
         love: [LoveSchema],
+        sendmails: [{type: mongoose.Schema.Types.ObjectId, ref: 'Mail'}],
+        receivemails: [{type: mongoose.Schema.Types.ObjectId, ref: 'Mail'}],
         chat: [{type: mongoose.Schema.Types.ObjectId, ref: 'Chat'}],
         area: {type: mongoose.Schema.Types.ObjectId, ref: 'Area'},
         power: { type: String, required: true },

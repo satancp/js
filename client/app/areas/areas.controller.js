@@ -1,6 +1,6 @@
 angular.module('as2App')
-  .controller('AreasCtrl', ['$scope','Area','Info','ipCookie','$location','$route','$routeParams',
-       function($scope,Area,Info,ipCookie,$location,$route,$routeParams) {
+  .controller('AreasCtrl', ['$scope','Area','Info','ipCookie','$location','$route','$routeParams','$interval',
+       function($scope,Area,Info,ipCookie,$location,$route,$routeParams,$interval) {
     Area.getUsers($routeParams.id)
         .success(function(users) {
              $scope.users = users;
@@ -8,6 +8,18 @@ angular.module('as2App')
     Area.getChats($routeParams.id)
         .success(function(chats) {
              $scope.chats = chats;
+             var everytime;
+             everytime = $interval(function() {
+             Area.getChats($routeParams.id)
+             .success(function(chats) {
+             $scope.chats = chats;
+             });}, 5000);
+             var everytime2;
+             everytime2 = $interval(function() {
+             Area.getUsers($routeParams.id)
+             .success(function(users) {
+             $scope.users = users;
+             });}, 60000);
         });
     Area.getAreas()
         .success(function(areas) {
@@ -18,6 +30,7 @@ angular.module('as2App')
             href: "/areas/"+ $scope.areas[0]._id
         }
     ];
+
     Info.getInfotypes()
         .success(function(infotypes) {
              $scope.infotypes = infotypes;
@@ -77,6 +90,8 @@ angular.module('as2App')
                     $scope.newchat = {};   
                 }).error(function(err){
                   $scope.err = err;
+                  $location.path('/areas/'+$routeParams.id);
+                  $route.reload();
                 });
               };
 

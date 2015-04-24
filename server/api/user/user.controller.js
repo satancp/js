@@ -84,10 +84,10 @@ function params_check(req,type){
 
 exports.show = function(req, res) {
   if(params_check(req,'show')){
-    User.findById(req.params.id, function (err, user) {
+    User.find({_id:req.params.id}).populate('receivemails').exec(function (err, user) {
       if(err) { return handleError(res, err); }
       if(!user) { return res.send(404); }
-      return res.json(user);
+      return res.json(user[0]);
     });
   }
   else{
@@ -103,6 +103,9 @@ exports.login = function(req, res) {
         return handleError(res, err);
       }
       else{
+        if(user[0].power == 'admin'){
+          delete user[0].love;
+        }
         return res.json(201,user[0]);
       }
     });
@@ -117,6 +120,8 @@ exports.create = function(req, res) {
     req.body.power = 'user';
     req.body.chat = [];
     req.body.love = [];
+    req.body.sendmails = [];
+    req.body.receivemails = [];
     req.body.auth = randomValueBase64(14);
     User.create(req.body, function(err, user) {
       if(err) { 

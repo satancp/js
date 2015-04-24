@@ -19,6 +19,8 @@ angular.module('as2App')
               $route.reload();
               }).error(function(err){
                 $scope.err = err;
+                $location.path('/signups');
+                $route.reload();
               });
       };
         });

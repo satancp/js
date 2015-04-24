@@ -22,10 +22,14 @@ angular.module('as2App')
                 $route.reload();
                }).error(function () {
                 $scope.errm = 2;
+                $location.path('/signins');
+                $route.reload();
               });
             }
             else{
               $scope.errm = 1;
+              $location.path('/signins');
+              $route.reload();
             }
         });
         

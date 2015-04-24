@@ -32,7 +32,7 @@ exports.showallchats = function(req, res) {
   if(params_check(req,'showallchats')){
     Chat.find({area:req.params.id}).populate('user').exec(function (err, chats) {
       if(err) { return handleError(res, err); }
-      return res.json(chats);
+      return res.hal({data:chats});
     });
   }
   else{
@@ -54,7 +54,7 @@ exports.create = function(req, res) {
       User.findById(req.body.user, function(err, user) {
         user.chat.push(chat._id);
         user.save();
-        return res.json(201, chat);
+        return res.hal({data: chat});
       });
     });
   }

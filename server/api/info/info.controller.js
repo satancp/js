@@ -4,6 +4,8 @@ var _ = require('lodash')
 
 var Info = require('./info.model');  
 var Infotype = require('../infotype/infotype.model');  
+var User = require('../user/user.model');
+var Mail = require('../mail/mail.model');
 
 function handleError(res, err) {
     return res.send(500, err);
@@ -261,6 +263,25 @@ exports.add_second_comment = function(req, res) {
                   }
                   return handleError(res, x); 
                 }
+                User.findById(info.comments[comment_index].user, function (err, user) {
+                  User.findById(req.body.user, function (err, another_user) {
+                  User.find(function (err, users) {
+                  var newmail = {
+                    title: 'Your comment has been commented.',
+                    content: 'Your comment in '+info.title+' has been commented by '+another_user.name+'.',
+                    sender: users[0]._id,
+                    receiver: user._id
+                  }
+                  Mail.create(newmail, function(err, mail) {
+                    if(err) { 
+                    var y = [];
+                    for(var a in err.errors){
+                    y.push(err.errors[a].message);
+                    }
+                    return handleError(res, y); 
+                    }
+                    user.receivemails.push(mail._id);
+                    user.save();
                 var last = _.last(info.comments[comment_index].comments)
                 if (last != undefined) {
                    return res.json(200, last);
@@ -268,6 +289,7 @@ exports.add_second_comment = function(req, res) {
                 else {
                   return res.send(500,"Database error")
                 }
+              })})})})
               });
     });
   }

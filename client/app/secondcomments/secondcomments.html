@@ -59,6 +59,7 @@
       class="form-control"
       placeholder="Comment"
       ng-model="newcomment.content"></input>
+      <span ng-show="err != undefined" ng-repeat="errmessage in err"><font color="red">{{errmessage}}</font></span>
     </div>
     <button type="submit" class="btn btn-primary">Post</button>
   </form>
